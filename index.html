@@ -1,0 +1,466 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Jaseil Lightfoot — CS Student & Future Software Engineer</title>
+
+  <!-- Google Font (Inter) -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg: #0b0f14;
+      --card: rgba(255,255,255,0.025);
+      --muted: #9fb0bd;
+      --text: #e8f1f8;
+      --accent: #2dd4bf; /* teal accent — change if desired */
+      --glass: rgba(255,255,255,0.03);
+      --radius: 14px;
+      --maxwidth: 1100px;
+      --nav-height: 68px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: radial-gradient(1200px 600px at 10% 10%, rgba(45,212,191,0.04), transparent 12%),
+                  radial-gradient(800px 400px at 90% 80%, rgba(110,231,183,0.02), transparent 12%),
+                  var(--bg);
+      color:var(--text);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.45;
+      padding-bottom:3.5rem;
+    }
+
+    /* Container */
+    .container{
+      max-width:var(--maxwidth);
+      margin:0 auto;
+      padding:0 1.25rem;
+    }
+
+    /* NAV */
+    header.site-header{
+      position:sticky;
+      top:0;
+      z-index:40;
+      backdrop-filter: blur(6px);
+      background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00));
+      border-bottom: 1px solid rgba(255,255,255,0.03);
+      height:var(--nav-height);
+      display:flex;
+      align-items:center;
+    }
+    .site-brand{display:flex;align-items:center;gap:.9rem}
+    .logo{
+      font-weight:800;
+      letter-spacing:0.02em;
+      font-size:1.05rem;
+      padding:6px 10px;
+      border-radius:10px;
+      background: linear-gradient(90deg, rgba(255,255,255,0.02), transparent);
+      color:var(--text);
+    }
+    nav.main-nav{margin-left:auto;display:flex;gap:1rem;align-items:center}
+    nav.main-nav a{
+      color:var(--muted);
+      text-decoration:none;
+      padding:8px 12px;
+      border-radius:8px;
+      font-weight:600;
+      font-size:.95rem;
+    }
+    nav.main-nav a:hover{color:var(--text);background:rgba(255,255,255,0.02)}
+    .cta-resume{
+      border:1px solid rgba(255,255,255,0.06);
+      padding:8px 12px;
+      border-radius:10px;
+      color:var(--accent);
+      text-decoration:none;
+      font-weight:700;
+      margin-left:.5rem;
+    }
+
+    /* Hero */
+    .hero{
+      min-height:62vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      padding:3.6rem 0;
+    }
+    .hero-inner{
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
+      padding:2.2rem;
+      border-radius:22px;
+      width:100%;
+      max-width:980px;
+      box-shadow: 0 8px 30px rgba(2,6,23,0.6);
+      border: 1px solid rgba(255,255,255,0.03);
+    }
+
+    .name{
+      margin:0;
+      font-weight:700;
+      font-size:clamp(2rem,6vw,3.6rem);
+      letter-spacing:0.02em;
+      display:inline-block;
+      position:relative;
+      padding-bottom:0.65rem;
+      color:var(--text);
+    }
+    /* animated underline (grows on load) */
+    .name::after{
+      content:"";
+      position:absolute;
+      left:0;
+      bottom:0;
+      height:4px;
+      width:0%;
+      background: linear-gradient(90deg,var(--accent), rgba(255,255,255,0.08));
+      border-radius:4px;
+      transition: width 850ms cubic-bezier(.22,.9,.33,1);
+      box-shadow: 0 8px 24px rgba(9,10,12,0.45);
+      transform-origin:left center;
+    }
+    .name.loaded::after{ width:68%; }
+
+    .tagline{
+      margin:.7rem 0 1.2rem;
+      color:var(--muted);
+      font-size:clamp(.95rem,2.1vw,1.05rem);
+    }
+    .hero-cta{
+      display:inline-flex;
+      gap:.6rem;
+      margin-top:0.35rem;
+      align-items:center;
+      justify-content:center;
+    }
+    .btn{
+      padding:.6rem 1.05rem;
+      border-radius:10px;
+      text-decoration:none;
+      font-weight:700;
+      border:1px solid rgba(255,255,255,0.06);
+      background:transparent;
+      color:var(--text);
+    }
+    .btn-outline{ color:var(--accent); border-color:rgba(45,212,191,0.12) }
+    .btn-primary{
+      background: linear-gradient(90deg,var(--accent), rgba(255,255,255,0.06));
+      color:#081014;
+      box-shadow: 0 8px 22px rgba(45,212,191,0.06);
+    }
+
+    /* Layout sections */
+    section{padding:3.25rem 0}
+    .split{
+      display:grid;
+      grid-template-columns: 1fr 360px;
+      gap:1.6rem;
+      align-items:start;
+    }
+    .card{
+      background:var(--card);
+      border-radius:var(--radius);
+      padding:1.2rem;
+      border:1px solid rgba(255,255,255,0.03);
+    }
+
+    /* About */
+    .profile{
+      display:flex;
+      gap:1rem;
+      align-items:center;
+    }
+    .avatar{
+      width:92px;height:92px;border-radius:14px;flex:0 0 92px;
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
+      display:flex;align-items:center;justify-content:center;overflow:hidden;
+      border:1px solid rgba(255,255,255,0.03);
+    }
+    .avatar img{width:100%;height:100%;object-fit:cover;display:block}
+
+    .about-text p{margin-top:0;margin-bottom:.6rem;color:var(--muted)}
+
+    /* Skills & projects */
+    .skills{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:.6rem}
+    .skill-pill{
+      padding:.45rem .65rem;border-radius:999px;background:transparent;border:1px solid rgba(255,255,255,0.03);
+      color:var(--muted);font-weight:600;font-size:.9rem
+    }
+
+    .project{
+      display:flex;
+      flex-direction:column;
+      gap:.45rem;
+      padding:.9rem;
+      border-radius:10px;
+      border:1px solid rgba(255,255,255,0.03);
+      background: linear-gradient(180deg, rgba(255,255,255,0.012), transparent);
+    }
+    .project h4{margin:0;font-size:1.02rem}
+    .project p{margin:0;color:var(--muted);font-size:.95rem}
+
+    /* Right column */
+    .info-list{display:flex;flex-direction:column;gap:.7rem}
+    .info-item{display:flex;flex-direction:column}
+    .info-item strong{font-weight:700;color:var(--text)}
+    .edu{color:var(--muted);font-size:.95rem}
+
+    /* Contact */
+    .contact-card{display:flex;flex-direction:column;gap:.6rem}
+    .contact-row{display:flex;gap:.7rem;align-items:center}
+    .contact-icon{
+      width:44px;height:44px;border-radius:10px;background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
+      display:grid;place-items:center;border:1px solid rgba(255,255,255,0.03)
+    }
+    .contact-link{color:var(--text);font-weight:700;text-decoration:none}
+    .contact-sub{color:var(--muted);font-size:.95rem}
+
+    footer.site-foot{
+      margin-top:2rem;padding-top:2rem;border-top:1px solid rgba(255,255,255,0.03);
+      text-align:center;color:var(--muted);
+    }
+
+    /* Social Icons row (used in contact & footer) */
+    .social-row{display:flex;gap:.6rem;align-items:center}
+    .icon-btn{
+      display:inline-grid;place-items:center;width:44px;height:44px;border-radius:10px;
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
+      border:1px solid rgba(255,255,255,0.03);
+      text-decoration:none;color:var(--text);
+    }
+    .icon-btn svg{width:18px;height:18px;display:block}
+
+    /* Responsive */
+    @media (max-width:980px){
+      .split{grid-template-columns:1fr}
+      .hero-inner{padding:1.6rem}
+    }
+    @media (max-width:520px){
+      nav.main-nav{display:none}
+      .logo{font-size:.98rem}
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container" style="display:flex;align-items:center;gap:1rem;">
+      <div class="site-brand">
+        <div class="logo">Jaseil Lightfoot</div>
+        <div style="color:var(--muted);font-weight:600;font-size:.88rem">CS • Virginia State University</div>
+      </div>
+
+      <nav class="main-nav" aria-label="Main navigation">
+        <a href="#about">About</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+        <a class="cta-resume" href="#" download>Resume</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <div class="hero-inner">
+          <h1 class="name" id="hero-name">Jaseil Lightfoot</h1>
+          <p class="tagline">CS Freshman at Virginia State University | Future Software Engineer</p>
+
+          <div class="hero-cta">
+            <a class="btn btn-primary" href="#projects">See my work</a>
+            <a class="btn btn-outline" href="#contact">Get in touch</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="container">
+      <div class="split">
+        <div>
+          <div class="card">
+            <div class="profile">
+              <div class="avatar" aria-hidden="true">
+                <!-- Placeholder image: replace with your image -->
+                <img src="https://via.placeholder.com/300x300.png?text=Your+Photo" alt="Jaseil Lightfoot">
+              </div>
+              <div>
+                <h3 style="margin:0 0 .25rem 0">About</h3>
+                <div class="about-text">
+                  <p>Hi — I’m Jaseil. I’m a Computer Science freshman at Virginia State University with a strong interest in software engineering, algorithms, and web development. I enjoy building projects that solve real problems and learning new tools.</p>
+                  <p>Right now I’m focused on improving my full-stack skills and contributing to open source when I can.</p>
+                </div>
+              </div>
+            </div>
+
+            <div style="margin-top:1rem">
+              <h4 style="margin:0 0 .5rem 0">Skills</h4>
+              <div class="skills">
+                <div class="skill-pill">Python</div>
+                <div class="skill-pill">Java</div>
+                <div class="skill-pill">HTML & CSS</div>
+                <div class="skill-pill">JavaScript</div>
+                <div class="skill-pill">Git</div>
+              </div>
+            </div>
+          </div>
+
+          <div style="margin-top:1.2rem">
+            <h3 style="margin-bottom:.6rem">Projects</h3>
+
+            <div class="project card">
+              <h4>Project One — Title Here</h4>
+              <p>Short description of a project. Replace this with your real project info and link to GitHub or demo.</p>
+              <div style="margin-top:.6rem">
+                <a href="#" style="color:var(--accent);text-decoration:none;font-weight:700">View on GitHub →</a>
+              </div>
+            </div>
+
+            <div class="project card" style="margin-top:.8rem">
+              <h4>Project Two — Title Here</h4>
+              <p>Another short project description. Swap this with details about what you built and technologies used.</p>
+              <div style="margin-top:.6rem">
+                <a href="#" style="color:var(--accent);text-decoration:none;font-weight:700">View on GitHub →</a>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <aside>
+          <div class="card">
+            <div class="info-list">
+              <div class="info-item">
+                <strong>Education</strong>
+                <div class="edu">Virginia State University — B.S. Computer Science (Expected)</div>
+              </div>
+
+              <div class="info-item" style="margin-top:.6rem">
+                <strong>Contact</strong>
+                <div class="contact-card">
+                  <div class="contact-row">
+                    <div class="contact-icon" aria-hidden="true">
+                      <!-- mail icon -->
+                      <svg width="18" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 7.5L11.25 13.125a2.25 2.25 0 002.5 0L21 7.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </div>
+                    <div>
+                      <a class="contact-link" href="mailto:jaseillightfoot99@gmail.com">jaseillightfoot99@gmail.com</a>
+                      <div class="contact-sub">Prefer email for professional inquiries</div>
+                    </div>
+                  </div>
+
+                  <div class="contact-row" style="margin-top:.2rem">
+                    <div class="contact-icon" aria-hidden="true">
+                      <!-- linkedin icon -->
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16 8a6 6 0 016 6v6h-4v-6a2 2 0 00-4 0v6h-4v-12h4v2.2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M2 9h4v12H2zM4 4a2 2 0 110 4 2 2 0 010-4z" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </div>
+                    <div>
+                      <a class="contact-link" href="https://www.linkedin.com/in/jaseil-lightfoot-480294335/" target="_blank" rel="noopener">LinkedIn — jaseil-lightfoot</a>
+                      <div class="contact-sub">Connect with me professionally</div>
+                    </div>
+                  </div>
+
+                  <div class="contact-row" style="margin-top:.2rem">
+                    <div class="contact-icon" aria-hidden="true">
+                      <!-- github icon -->
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C7.03 2 3 6.03 3 11c0 4 2.53 7.4 6.04 8.6.44.08.6-.19.6-.42 0-.2-.01-.73-.01-1.43-2.46.54-2.98-1.06-2.98-1.06-.4-1.02-.98-1.3-.98-1.3-.8-.54.06-.53.06-.53.88.06 1.35.9 1.35.9.79 1.36 2.07.97 2.57.74.08-.58.31-.97.56-1.19-1.97-.22-4.04-.99-4.04-4.4 0-.97.35-1.76.92-2.38-.09-.22-.4-1.12.09-2.33 0 0 .75-.24 2.45.91a8.4 8.4 0 012.23-.3c.76 0 1.53.1 2.23.3 1.7-1.15 2.45-.91 2.45-.91.49 1.21.18 2.11.09 2.33.57.62.92 1.4.92 2.38 0 3.42-2.08 4.18-4.06 4.39.32.28.61.83.61 1.67 0 1.2-.01 2.17-.01 2.47 0 .23.16.51.61.42A9.02 9.02 0 0021 11c0-4.97-4.03-9-9-9z" stroke="currentColor" stroke-width="0.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </div>
+                    <div>
+                      <a class="contact-link" href="https://github.com/newgod215" target="_blank" rel="noopener">GitHub — newgod215</a>
+                      <div class="contact-sub">See my code & contributions</div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+              <div style="margin-top:.8rem">
+                <strong>Quick links</strong>
+                <div style="margin-top:.5rem;display:flex;gap:.5rem;flex-wrap:wrap">
+                  <a class="icon-btn" href="mailto:jaseillightfoot99@gmail.com" title="Email">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 7.5L11.25 13.125a2.25 2.25 0 002.5 0L21 7.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </a>
+                  <a class="icon-btn" href="https://www.linkedin.com/in/jaseil-lightfoot-480294335/" target="_blank" rel="noopener" title="LinkedIn">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16 8a6 6 0 016 6v6h-4v-6a2 2 0 00-4 0v6h-4v-12h4v2.2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M2 9h4v12H2zM4 4a2 2 0 110 4 2 2 0 010-4z" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </a>
+                  <a class="icon-btn" href="https://github.com/newgod215" target="_blank" rel="noopener" title="GitHub">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C7.03 2 3 6.03 3 11c0 4 2.53 7.4 6.04 8.6.44.08.6-.19.6-.42 0-.2-.01-.73-.01-1.43-2.46.54-2.98-1.06-2.98-1.06-.4-1.02-.98-1.3-.98-1.3-.8-.54.06-.53.06-.53.88.06 1.35.9 1.35.9.79 1.36 2.07.97 2.57.74.08-.58.31-.97.56-1.19-1.97-.22-4.04-.99-4.04-4.4 0-.97.35-1.76.92-2.38-.09-.22-.4-1.12.09-2.33 0 0 .75-.24 2.45.91a8.4 8.4 0 012.23-.3c.76 0 1.53.1 2.23.3 1.7-1.15 2.45-.91 2.45-.91.49 1.21.18 2.11.09 2.33.57.62.92 1.4.92 2.38 0 3.42-2.08 4.18-4.06 4.39.32.28.61.83.61 1.67 0 1.2-.01 2.17-.01 2.47 0 .23.16.51.61.42A9.02 9.02 0 0021 11c0-4.97-4.03-9-9-9z" stroke="currentColor" stroke-width="0.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </a>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="projects" class="container">
+      <h3 style="margin-bottom:.6rem">More Projects</h3>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1rem">
+        <div class="project card">
+          <h4>Project — Replace me</h4>
+          <p>Short description. Swap these placeholders with your real projects and links to repos or live demos.</p>
+        </div>
+        <div class="project card">
+          <h4>Project — Replace me</h4>
+          <p>Short description. Swap these placeholders with your real projects and links to repos or live demos.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="container">
+      <div class="card">
+        <h3 style="margin-top:0">Contact Me</h3>
+        <p style="color:var(--muted)">I check email regularly — feel free to reach out for collaborations, internships, or general questions.</p>
+
+        <div style="display:flex;gap:1rem;align-items:center;margin-top:1rem;flex-wrap:wrap">
+          <a class="btn btn-primary" href="mailto:jaseillightfoot99@gmail.com">Email me</a>
+          <a class="btn btn-outline" href="https://www.linkedin.com/in/jaseil-lightfoot-480294335/" target="_blank" rel="noopener">LinkedIn</a>
+          <a class="btn btn-outline" href="https://github.com/newgod215" target="_blank" rel="noopener">GitHub</a>
+        </div>
+      </div>
+    </section>
+
+    <footer class="container site-foot">
+      <div style="display:flex;justify-content:center;align-items:center;gap:1rem;flex-direction:column">
+        <div style="display:flex;gap:.6rem;align-items:center">
+          <a class="icon-btn" href="mailto:jaseillightfoot99@gmail.com" title="Email">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 7.5L11.25 13.125a2.25 2.25 0 002.5 0L21 7.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <a class="icon-btn" href="https://www.linkedin.com/in/jaseil-lightfoot-480294335/" target="_blank" rel="noopener" title="LinkedIn">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16 8a6 6 0 016 6v6h-4v-6a2 2 0 00-4 0v6h-4v-12h4v2.2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M2 9h4v12H2zM4 4a2 2 0 110 4 2 2 0 010-4z" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <a class="icon-btn" href="https://github.com/newgod215" target="_blank" rel="noopener" title="GitHub">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C7.03 2 3 6.03 3 11c0 4 2.53 7.4 6.04 8.6.44.08.6-.19.6-.42 0-.2-.01-.73-.01-1.43-2.46.54-2.98-1.06-2.98-1.06-.4-1.02-.98-1.3-.98-1.3-.8-.54.06-.53.06-.53.88.06 1.35.9 1.35.9.79 1.36 2.07.97 2.57.74.08-.58.31-.97.56-1.19-1.97-.22-4.04-.99-4.04-4.4 0-.97.35-1.76.92-2.38-.09-.22-.4-1.12.09-2.33 0 0 .75-.24 2.45.91a8.4 8.4 0 012.23-.3c.76 0 1.53.1 2.23.3 1.7-1.15 2.45-.91 2.45-.91.49 1.21.18 2.11.09 2.33.57.62.92 1.4.92 2.38 0 3.42-2.08 4.18-4.06 4.39.32.28.61.83.61 1.67 0 1.2-.01 2.17-.01 2.47 0 .23.16.51.61.42A9.02 9.02 0 0021 11c0-4.97-4.03-9-9-9z" stroke="currentColor" stroke-width="0.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+
+        <div style="margin-top:.6rem;color:var(--muted);font-size:.95rem">
+          © <span id="year"></span> Jaseil Lightfoot — Built with care
+        </div>
+      </div>
+    </footer>
+  </main>
+
+  <script>
+    // animate hero underline on load
+    document.addEventListener('DOMContentLoaded', ()=> {
+      requestAnimationFrame(()=> {
+        const name = document.getElementById('hero-name');
+        if(name) name.classList.add('loaded');
+        // set year in footer
+        const y = new Date().getFullYear();
+        const el = document.getElementById('year');
+        if(el) el.textContent = y;
+      });
+    });
+  </script>
+</body>
+</html>
